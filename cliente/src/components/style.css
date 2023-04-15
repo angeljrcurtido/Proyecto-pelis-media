@@ -1,0 +1,140 @@
+.navegador1 {
+    display: flex;
+    
+}
+
+h2 {
+    flex: 1;
+
+}
+
+.navegador1 li {
+    border-right: 1px solid black;
+    flex:3 ;
+    list-style: none;
+    font: inherit;
+    font-family: sans-serif;
+    
+}
+
+.navegador1 li a {
+    text-decoration: none;
+    color: white;
+}
+nav {
+    background-color: rgb(81 230 132);
+    padding-bottom: 1%;
+    padding-top: 1%;
+}
+.nav-toggle {
+    display: none;
+}
+
+.close-icon, .menu-icon {
+    font-size: 1em; /* Cambia 2em por el tamaño que desees */
+    color: black;
+    font-weight: bold;
+    padding: 0.25em;
+    border-radius: 50%;
+  }
+  @media (max-width: 768px) {
+    .nav-toggle {
+        margin-left: 5%;  
+      display: block;
+      border: none;
+      background-color: transparent;
+    }
+    .nav-header {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-content: space-around;
+    }
+  }
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .navegador1 {
+        position: relative;
+        top: 100%;
+        left: 0;
+        background-color: rgb(81 230 132);
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        transition: max-height 0.2s ease-out;
+    }
+
+    /* Agregamos la clase 'open' al menú cuando está desplegado */
+    .navegador1.open {
+        max-height: 400px;
+    }
+
+
+
+    .navegador1 li,
+    .navegador1 h2 {
+        padding: 10px;
+        border-bottom: 1px solid white;
+        color: white;
+        text-align: center;
+        width: 100%;
+        transition: background-color 0.2s ease-out;
+    }
+
+    .navegador1 li:hover,
+    .navegador1 h2:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+
+.subgrupo1 {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+}
+.subgrupo2 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+}
+
+.form-group1 {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.form-group2 {
+    width: 49%;
+}
+
+.form-container {
+    font-family: sans-serif;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+input {
+margin: 2%;
+}
+
+.btn.btn-success1 {
+    margin-top: 2%;
+ background-color:rgb(81 230 132);
+ color: white;   
+}
+
+.titulodecarga {
+    font-weight: bold;
+}
+
+.btn.btn-danger{
+    margin-left: 2%;
+}
