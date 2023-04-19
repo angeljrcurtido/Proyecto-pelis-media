@@ -38,8 +38,14 @@ const CargarPeliculas = () => {
       // Editar la pelicula seleccionada
       axios.put(`http://localhost:8000/api/editarpelicula/${peliculaSeleccionada._id}`, { title, description, images, categoria })
         .then(response => {
-          // Recargar la página automáticamente después de enviar el formulario
-          window.location.reload();
+          // Llamar nuevamente a la API para obtener los datos actualizados
+          axios.get('http://localhost:8000/api/obtener')
+            .then(response => {
+              setPeliculas(response.data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
         })
         .catch(error => {
           console.log(error);
@@ -48,8 +54,14 @@ const CargarPeliculas = () => {
       // Agregar una nueva pelicula
       axios.post('http://localhost:8000/api/agregar', { title, description, images, categoria })
         .then(response => {
-          // Recargar la página automáticamente después de enviar el formulario
-          window.location.reload();
+          // Llamar nuevamente a la API para obtener los datos actualizados
+          axios.get('http://localhost:8000/api/obtener')
+            .then(response => {
+              setPeliculas(response.data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
         })
         .catch(error => {
           console.log(error);
@@ -78,19 +90,25 @@ const CargarPeliculas = () => {
         console.log(error);
       });
   };
-    // Eliminar una pelicula
-    const handleEliminarPelicula = (id) => {
-      if (window.confirm("¿Estás seguro que deseas eliminar esta película?")) {
-        axios.delete(`http://localhost:8000/api/borrar/${id}`)
-          .then(response => {
-            // Recargar la página automáticamente después de eliminar la película
-            window.location.reload();
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-    };
+  // Eliminar una pelicula
+  const handleEliminarPelicula = (id) => {
+    if (window.confirm("¿Estás seguro que deseas eliminar esta película?")) {
+      axios.delete(`http://localhost:8000/api/borrar/${id}`)
+        .then(response => {
+          // Llamar nuevamente a la API para obtener los datos actualizados
+          axios.get('http://localhost:8000/api/obtener')
+            .then(response => {
+              setPeliculas(response.data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <div>
