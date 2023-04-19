@@ -20,6 +20,7 @@ function App() {
       <div className="App">
         <NavBar isLoggedIn={isLoggedIn} />
         <Routes>
+          <Route path='/' element={<Navigate to="/inicio"/>}/>
           <Route path="/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/estrenodepeliculas" element={isLoggedIn ? <Estrenodepeliculas /> : <Navigate to="/login" />} />
