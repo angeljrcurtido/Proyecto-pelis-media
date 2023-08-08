@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import './style.css'
 
@@ -10,6 +10,7 @@ const CargarPeliculas = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
   const [peliculas, setPeliculas] = useState([]);
   const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
+  const formRef = useRef(null);
 
   // Obtener las categorias disponibles y la lista de peliculas
   useEffect(() => {
@@ -74,6 +75,9 @@ const CargarPeliculas = () => {
     setImages('');
     setCategoria('');
     setPeliculaSeleccionada(null);
+
+    // Reiniciar el formulario
+    formRef.current.reset();
   }
 
   // Obtener los detalles de una pelicula y actualizar el estado para permitir su edición
@@ -90,6 +94,7 @@ const CargarPeliculas = () => {
         console.log(error);
       });
   };
+
   // Eliminar una pelicula
   const handleEliminarPelicula = (id) => {
     if (window.confirm("¿Estás seguro que deseas eliminar esta película?")) {
@@ -110,31 +115,47 @@ const CargarPeliculas = () => {
     }
   };
 
+  //Funcion para convertir imagen a base64 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+   
+
+    reader.onloadend = () => {
+      const base64Image = reader.result;
+      setImages(base64Image);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit} class="form-container">
+      <form ref={formRef} onSubmit={handleSubmit} className="form-container">
         <h2 className="titulodecarga">Cargar Peliculas</h2>
         <div className="subgrupo1">
           <div className="form-group title">
-            <label for="title" class="form-label">Titulo:</label>
-            <input placeholder="Titulo de Pelicula" type="text" class="form-input title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <label htmlFor="title" className="form-label">Titulo:</label>
+            <input placeholder="Titulo de Pelicula" type="text" className="form-input title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
 
           <div className="form-group1">
-            <label for="description" class="form-label">Description:</label>
-            <textarea placeholder="Descripcion de Pelicula" class="form-input" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+            <label htmlFor="description" className="form-label">Descripción:</label>
+            <textarea placeholder="Descripción de Pelicula" className="form-input" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
           </div>
         </div>
 
         <div className="subgrupo2">
           <div className="form-group2">
-            <label for="images" class="form-label">Images:</label>
-            <input placeholder="Coloque URL de imagen" type="text" class="form-input" id="images" value={images} onChange={(e) => setImages(e.target.value)} />
+            <label htmlFor="images" className="form-label">Imagen:</label>
+            <input type="file" accept=".jpg, .jpeg, .png" className="form-input" id="images" onChange={handleImageChange} />
           </div>
 
-          <div class="form-group">
-            <label for="categoria" class="form-label">Categoria:</label>
-            <select class="form-select" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+          <div className="form-group">
+            <label htmlFor="categoria" className="form-label">Categoría:</label>
+            <select className="form-select" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
               <option value="">Seleccionar categoría</option>
               {categoriaSeleccionada.map((categoria, index) => (
                 <option key={index} value={categoria}>{categoria}</option>
@@ -159,7 +180,7 @@ const CargarPeliculas = () => {
           </div>
         ))}
       </div>
-    </div >
+    </div>
   );
 };
 
