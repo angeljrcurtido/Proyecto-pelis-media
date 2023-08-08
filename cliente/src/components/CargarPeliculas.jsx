@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import './style.css'
-
+//Declaracion de const
 const CargarPeliculas = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
